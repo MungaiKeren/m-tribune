@@ -64,3 +64,11 @@ def search_results(request):
     else:
         message = "you have not searched for any message"
         return render(request, 'all-news/search.html', {"message": message})
+
+
+def article(request, article_id):
+    try:
+        article = Article.objects.get(id=article_id)
+    except DoesNotExist:
+        raise Http404()
+    return render(request, "all-news/articles.html", {"article": article})
