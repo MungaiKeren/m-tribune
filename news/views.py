@@ -13,7 +13,12 @@ def news_today(request):
     date = dt.date.today()
     news = Article.todays_news()
 
-    return render(request, 'all-news/today-news.html', {"date": date, "news": news})
+    param = {
+        "date": date,
+        "news": news
+    }
+
+    return render(request, 'all-news/today-news.html', param)
 
 
 def convert_dates(dates):
@@ -42,3 +47,20 @@ def past_days_news(request, past_date):
 
     news = Article.days_news(date)
     return render(request, 'all-news/past-news.html', {"date": date, "news": news})
+
+
+def search_results(request):
+    if 'article' in request.GET and request.GET["article"]:
+        search_term = request.GET.get("article")
+        searched_articles = Article.search_by_title(search_term)
+        message = f'{search_term}'
+
+        param = {
+            "message": message,
+            "articles": searched_articles
+        }
+
+        return render(request, 'all-news/search.html', param)
+    else:
+        message = "you have not searched for any message"
+        return render(request, 'all-news/search.html', {"message": message})
