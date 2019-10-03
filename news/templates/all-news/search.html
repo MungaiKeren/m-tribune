@@ -14,6 +14,11 @@
         <div class=" col-sm-6 col-md-3">
             <h1>{{article.title}}</h1>
             <p>{{article.post}}</p>
+            <p class="text-muted">
+                Published on: {{article.pub_date}}
+                <br>
+                By: {{article.editor}}
+            </p>
         </div>
         {% endfor %}
         {% endif %}
